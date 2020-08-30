@@ -45,15 +45,20 @@ class Writer extends Child {
       case type === 'Integer':
         return 'number'
       case type.includes('Array of'):
+        let arrayOfs: number, ands: number
+
+        arrayOfs = (type.match(/Array of/g) || []).length
+        ands = (type.match(/ and /g) || []).length
+
         return (
-          '(' +
+          (ands > 0 ? '(' : '') +
           type
             .replace(/(Array of | and)/g, '')
             .split(' ')
             .reduce((r: string[], v: string) => [...r, this.telegramTypeToTypescript(v)], [])
             .join(' | ') +
-          ')' +
-          '[]'
+          (ands > 0 ? ')' : '') +
+          new Array(arrayOfs).fill('[]').reduce((r: string, v: string) => r + v, '')
         )
       case type === 'String':
         return 'string'
