@@ -1,0 +1,34 @@
+{
+  "name": "@queelag/telegram-types",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Dario Sechi",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/cheerio": "^0.22.21",
+    "@types/fs-extra": "^9.0.1",
+    "@types/jest": "^26.0.9",
+    "@types/lodash": "^4.14.159",
+    "@types/node": "^14.0.27",
+    "axios": "^0.20.0",
+    "cheerio": "^1.0.0-rc.3",
+    "dts-bundle": "^0.7.3",
+    "fs-extra": "^9.0.1",
+    "jest": "^26.2.2",
+    "lodash": "^4.17.19",
+    "terser-webpack-plugin": "^4.0.0",
+    "ts-jest": "^26.1.4",
+    "ts-loader": "^8.0.2",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {},
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "rm -rf dist && rm -rf declarations && yarn webpack && node index.js && : > dist/index.js",
+    "test": "yarn jest index",
+    "tarball": "yarn version && cp package.json dist/. && cd dist && yarn pack",
+    "deploy": "yarn test && MODE=PRODUCTION yarn build && yarn tarball && yarn publish dist/*.tgz --access public && git push"
+  }
+}
