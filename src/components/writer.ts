@@ -14,7 +14,7 @@ class Writer extends Child {
 
       v.fields.forEach((v: Field) => {
         out.push(`  /* ${v.description} */`)
-        out.push(`  ${v.name}: ${this.telegramTypeToTypescript(v.type)}`)
+        out.push(`  ${v.name}${v.description.includes('Optional') ? '?:' : ':'} ${this.telegramTypeToTypescript(v.type)}`)
       })
 
       if (v.matches.length > 0) out[out.length - 1] += v.matches.join(' | ')
