@@ -1,12 +1,12 @@
-import Table from './components/table'
-import Parser from './components/parser'
-import cheerio from 'cheerio'
 import axios, { AxiosResponse } from 'axios'
-import Writer from './components/writer'
+import cheerio from 'cheerio'
 import List from './components/list'
+import Parser from './components/parser'
+import Table from './components/table'
+import Writer from './components/writer'
 
 class Main {
-  cheerio: CheerioStatic = cheerio.load('')
+  cheerio: cheerio.Root = cheerio.load('')
   html: string = ''
 
   list: List = new List(this)

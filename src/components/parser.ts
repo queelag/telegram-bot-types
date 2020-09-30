@@ -1,6 +1,6 @@
-import Child from '../modules/child'
-import { Type, Method, Field, Parameter } from '../definitions/types'
 import { last, startCase } from 'lodash'
+import { Field, Method, Parameter, Type } from '../definitions/types'
+import Child from '../modules/child'
 
 class Parser extends Child {
   methods: Method[] = []
@@ -11,7 +11,7 @@ class Parser extends Child {
     this.types = this.reduceTablesToTypes(this.main.table.types).concat(this.reduceListsToTypes(this.main.list.types))
   }
 
-  reduceTableBodyToParameter(body: CheerioElement): Parameter {
+  reduceTableBodyToParameter(body: cheerio.Element): Parameter {
     let parameter: Parameter
 
     parameter = {} as Parameter
@@ -23,7 +23,7 @@ class Parser extends Child {
     return parameter
   }
 
-  reduceTableBodyToField(body: CheerioElement): Field {
+  reduceTableBodyToField(body: cheerio.Element): Field {
     let field: Field
 
     field = {} as Field
@@ -34,16 +34,16 @@ class Parser extends Child {
     return field
   }
 
-  reduceTableRowsToParameters(rows: CheerioElement[]): Parameter[] {
-    return rows.reduce((r: Parameter[], v: CheerioElement) => [...r, this.reduceTableBodyToParameter(v)], [])
+  reduceTableRowsToParameters(rows: cheerio.Element[]): Parameter[] {
+    return rows.reduce((r: Parameter[], v: cheerio.Element) => [...r, this.reduceTableBodyToParameter(v)], [])
   }
 
-  reduceTableRowsToFields(rows: CheerioElement[]): Field[] {
-    return rows.reduce((r: Field[], v: CheerioElement) => [...r, this.reduceTableBodyToField(v)], [])
+  reduceTableRowsToFields(rows: cheerio.Element[]): Field[] {
+    return rows.reduce((r: Field[], v: cheerio.Element) => [...r, this.reduceTableBodyToField(v)], [])
   }
 
-  reduceTableToMethod(table: CheerioElement): Method {
-    let rows: CheerioElement[], method: Method
+  reduceTableToMethod(table: cheerio.Element): Method {
+    let rows: cheerio.Element[], method: Method
 
     rows = this.main.cheerio('tbody > tr', table).toArray()
 
@@ -55,8 +55,8 @@ class Parser extends Child {
     return method
   }
 
-  reduceTableToType(table: CheerioElement): Type {
-    let rows: CheerioElement[], type: Type
+  reduceTableToType(table: cheerio.Element): Type {
+    let rows: cheerio.Element[], type: Type
 
     rows = this.main.cheerio('tbody > tr', table).toArray()
 
@@ -69,24 +69,24 @@ class Parser extends Child {
     return type
   }
 
-  reduceTablesToMethods(tables: CheerioElement[]): Method[] {
-    return tables.reduce((r: Method[], v: CheerioElement) => [...r, this.reduceTableToMethod(v)], [])
+  reduceTablesToMethods(tables: cheerio.Element[]): Method[] {
+    return tables.reduce((r: Method[], v: cheerio.Element) => [...r, this.reduceTableToMethod(v)], [])
   }
 
-  reduceTablesToTypes(tables: CheerioElement[]): Type[] {
-    return tables.reduce((r: Type[], v: CheerioElement) => [...r, this.reduceTableToType(v)], [])
+  reduceTablesToTypes(tables: cheerio.Element[]): Type[] {
+    return tables.reduce((r: Type[], v: cheerio.Element) => [...r, this.reduceTableToType(v)], [])
   }
 
-  reduceListLinkToMatch(link: CheerioElement): string {
+  reduceListLinkToMatch(link: cheerio.Element): string {
     return this.main.cheerio(link).text()
   }
 
-  reduceListLinksToMatches(links: CheerioElement[]): string[] {
-    return links.reduce((r: string[], v: CheerioElement) => [...r, this.reduceListLinkToMatch(v)], [])
+  reduceListLinksToMatches(links: cheerio.Element[]): string[] {
+    return links.reduce((r: string[], v: cheerio.Element) => [...r, this.reduceListLinkToMatch(v)], [])
   }
 
-  reduceListToType(list: CheerioElement): Type {
-    let links: CheerioElement[], type: Type
+  reduceListToType(list: cheerio.Element): Type {
+    let links: cheerio.Element[], type: Type
 
     links = this.main.cheerio('li > a', list).toArray()
 
@@ -99,13 +99,13 @@ class Parser extends Child {
     return type
   }
 
-  reduceListsToTypes(lists: CheerioElement[]): Type[] {
-    return lists.reduce((r: Type[], v: CheerioElement) => [...r, this.reduceListToType(v)], [])
+  reduceListsToTypes(lists: cheerio.Element[]): Type[] {
+    return lists.reduce((r: Type[], v: cheerio.Element) => [...r, this.reduceListToType(v)], [])
   }
 
-  reduceParagraphsToString(paragraphs: CheerioElement[]): string {
+  reduceParagraphsToString(paragraphs: cheerio.Element[]): string {
     return paragraphs
-      .reduce((r: string[], v: CheerioElement) => {
+      .reduce((r: string[], v: cheerio.Element) => {
         let text: string
 
         text = this.main.cheerio(v).text()
@@ -116,8 +116,8 @@ class Parser extends Child {
       .join('\n')
   }
 
-  findTableName(table: CheerioElement): string {
-    let paragraphs: CheerioElement[], heading: Cheerio
+  findTableName(table: cheerio.Element): string {
+    let paragraphs: cheerio.Element[], heading: cheerio.Cheerio
 
     paragraphs = this.main.cheerio(table).prevUntil('h4', 'p').toArray()
     heading = this.main.cheerio(last(paragraphs)).prev('h4')
@@ -125,15 +125,15 @@ class Parser extends Child {
     return heading.text()
   }
 
-  findListName(list: CheerioElement): string {
+  findListName(list: cheerio.Element): string {
     return this.findTableName(list)
   }
 
-  findTableDescription(table: CheerioElement): string {
+  findTableDescription(table: cheerio.Element): string {
     return this.reduceParagraphsToString(this.main.cheerio(table).prevUntil('h4', 'p').toArray())
   }
 
-  findListDescription(list: CheerioElement): string {
+  findListDescription(list: cheerio.Element): string {
     return this.findTableDescription(list)
   }
 }

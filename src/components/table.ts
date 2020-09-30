@@ -1,9 +1,9 @@
 import Child from '../modules/child'
 
 class Table extends Child {
-  all: CheerioElement[] = []
-  methods: CheerioElement[] = []
-  types: CheerioElement[] = []
+  all: cheerio.Element[] = []
+  methods: cheerio.Element[] = []
+  types: cheerio.Element[] = []
 
   initialize(): void {
     this.all = this.findAll()
@@ -11,23 +11,23 @@ class Table extends Child {
     this.types = this.findTypes()
   }
 
-  findAll(): CheerioElement[] {
+  findAll(): cheerio.Element[] {
     return this.main.cheerio('#dev_page_content').children('table').toArray()
   }
 
-  findMethods(): CheerioElement[] {
+  findMethods(): cheerio.Element[] {
     return this.filterByTableHeadFirstValue('Parameter', this.all)
   }
 
-  findTypes(): CheerioElement[] {
+  findTypes(): cheerio.Element[] {
     return this.filterByTableHeadFirstValue('Field', this.all)
   }
 
-  filterByTableHeadFirstValue(value: string, tables: CheerioElement[]): CheerioElement[] {
-    let filtered: CheerioElement[] = []
+  filterByTableHeadFirstValue(value: string, tables: cheerio.Element[]): cheerio.Element[] {
+    let filtered: cheerio.Element[] = []
 
-    tables.forEach((v: CheerioElement) => {
-      let head: Cheerio, text: string
+    tables.forEach((v: cheerio.Element) => {
+      let head: cheerio.Cheerio, text: string
 
       head = this.main.cheerio('thead > tr > th:first-child', v)
       text = head.text()
