@@ -35,10 +35,9 @@ module.exports = {
     minimize: isProduction,
     minimizer: [
       new TerserPlugin({
-        terserOptions: { keepClassName: true, keep_fnames: true }
+        terserOptions: { keep_fnames: true }
       })
     ]
   },
-  externals: (context, request, callback) =>
-    /^\.\.?/.test(request) ? callback() : callback(null, 'commonjs ' + request)
+  externals: (context, request, callback) => (/^\.\.?/.test(request) ? callback() : callback(null, 'commonjs ' + request))
 }
