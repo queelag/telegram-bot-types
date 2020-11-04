@@ -1,6 +1,6 @@
-import Child from '../modules/child'
 import fs from 'fs-extra'
-import { Method, Parameter, Type, Field } from '../definitions/types'
+import { Field, Method, Parameter, Type } from '../definitions/types'
+import Child from '../modules/child'
 
 class Writer extends Child {
   typescript(): void {
@@ -48,12 +48,12 @@ class Writer extends Child {
         let arrayOfs: number, ands: number
 
         arrayOfs = (type.match(/Array of/g) || []).length
-        ands = (type.match(/ and /g) || []).length
+        ands = (type.match(/( and |,)/g) || []).length
 
         return (
           (ands > 0 ? '(' : '') +
           type
-            .replace(/(Array of | and)/g, '')
+            .replace(/(Array of | and|,)/g, '')
             .split(' ')
             .reduce((r: string[], v: string) => [...r, this.telegramTypeToTypescript(v)], [])
             .join(' | ') +
