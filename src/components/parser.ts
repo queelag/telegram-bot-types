@@ -1,4 +1,4 @@
-import { last, startCase } from 'lodash'
+import { startCase } from 'lodash'
 import { Field, Method, Parameter, Type } from '../definitions/types'
 import Child from '../modules/child'
 
@@ -120,7 +120,7 @@ class Parser extends Child {
     let paragraphs: cheerio.Element[], heading: cheerio.Cheerio
 
     paragraphs = this.main.cheerio(table).prevUntil('h4', 'p').toArray()
-    heading = this.main.cheerio(last(paragraphs)).prev('h4')
+    heading = this.main.cheerio(paragraphs[0]).prev('h4')
 
     return heading.text()
   }
