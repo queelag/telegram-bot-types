@@ -79,6 +79,7 @@ class Writer extends Child {
       case type === 'InputFile':
         return 'Buffer | string'
       case type === 'CallbackGame':
+      case type === 'VoiceChatStarted':
         return 'any'
       default:
         return type

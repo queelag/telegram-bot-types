@@ -15,7 +15,11 @@ class List extends Child {
       .children('ul')
       .toArray()
       .filter((v: cheerio.Element) =>
-        every(this.main.cheerio('li', v).toArray(), (v: cheerio.Element) => this.main.cheerio(v).has('a') && this.main.cheerio('a', v).text().match(this.regex))
+        every(
+          this.main.cheerio('li', v).toArray(),
+          (v: cheerio.Element) =>
+            this.main.cheerio(v).has('a') && this.main.cheerio('a', v).text().match(this.regex) && !this.main.cheerio(v).html().includes('<em>')
+        )
       )
   }
 }
