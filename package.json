@@ -1,9 +1,5 @@
 {
-  "name": "@queelag/telegram-types",
-  "version": "1.1.4",
-  "main": "index.js",
   "author": "Dario Sechi",
-  "license": "MIT",
   "devDependencies": {
     "@types/cheerio": "^0.22.28",
     "@types/fs-extra": "^9.0.11",
@@ -23,12 +19,18 @@
     "webpack": "^5.36.1",
     "webpack-cli": "^4.6.0"
   },
-  "dependencies": {},
+  "license": "MIT",
+  "main": "index.js",
+  "name": "@queelag/telegram-types",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "start": "node dist/index.js",
     "build": "rm -rf dist && rm -rf declarations && yarn webpack && node index.js && : > dist/index.js",
     "test": "yarn jest index",
     "tarball": "yarn version && cp package.json dist/. && cd dist && yarn pack",
     "deploy": "yarn test && MODE=PRODUCTION yarn build && yarn tarball && yarn publish dist/*.tgz --access public && git push"
-  }
+  },
+  "version": "1.1.4"
 }
