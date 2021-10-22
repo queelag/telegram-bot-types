@@ -32,5 +32,5 @@
     "tarball": "yarn version && cp package.json dist/. && cd dist && yarn pack",
     "deploy": "yarn test && MODE=PRODUCTION yarn build && yarn tarball && yarn publish dist/*.tgz --access public && git push"
   },
-  "version": "1.1.6"
+  "version": "1.1.7"
 }
