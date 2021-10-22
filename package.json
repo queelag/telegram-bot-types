@@ -12,12 +12,8 @@
     "fs-extra": "^10.0.0",
     "jest": "^27.3.1",
     "lodash": "^4.17.21",
-    "terser-webpack-plugin": "^5.1.1",
     "ts-jest": "^27.0.7",
-    "ts-loader": "^9.1.1",
-    "typescript": "^4.2.4",
-    "webpack": "^5.36.1",
-    "webpack-cli": "^4.6.0"
+    "typescript": "^4.2.4"
   },
   "license": "MIT",
   "main": "index.js",
@@ -27,10 +23,10 @@
   },
   "scripts": {
     "start": "node dist/index.js",
-    "build": "rm -rf dist && rm -rf declarations && yarn webpack && node index.js && : > dist/index.js",
+    "build": "rm -rf dist && rm -rf declarations && yarn tsc && node index.js && : > dist/index.js",
     "test": "yarn jest index",
     "tarball": "yarn version && cp package.json dist/. && cd dist && yarn pack",
-    "deploy": "yarn test && MODE=PRODUCTION yarn build && yarn tarball && yarn publish dist/*.tgz --access public && git push"
+    "deploy": "yarn test && yarn build && yarn tarball && yarn publish dist/*.tgz --access public && git push"
   },
   "version": "1.1.7"
 }
