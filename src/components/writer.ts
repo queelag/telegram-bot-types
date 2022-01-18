@@ -77,7 +77,7 @@ class Writer extends Child {
       case type === 'True':
         return 'true'
       case type === 'InputFile':
-        return 'Buffer | string'
+        return '(Blob & { lastModified: number; name: string; webkitRelativePath: string }) | string'
       case type === 'CallbackGame':
       case type === 'VoiceChatStarted':
         return 'any'
