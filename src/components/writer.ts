@@ -1,4 +1,4 @@
-import { writeFileSync } from 'fs'
+import { mkdirSync, writeFileSync } from 'fs'
 import { Child } from '../modules/child'
 
 export class Writer extends Child {
@@ -42,6 +42,7 @@ export class Writer extends Child {
       out.push('')
     }
 
+    mkdirSync('./dist', { recursive: true })
     writeFileSync('./dist/index.d.ts', out.join('\n'))
   }
 
