@@ -42,7 +42,7 @@ export class Writer extends Child {
       out.push('')
     }
 
-    writeFileSync('dist/index.d.ts', out.join('\n'))
+    writeFileSync('./dist/index.d.ts', out.join('\n'))
   }
 
   telegramTypeToTypescript(type: string): string {

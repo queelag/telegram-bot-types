@@ -40,6 +40,6 @@ describe('Main', () => {
   it('writes the typescript definitions', () => {
     main.writer.typescript()
 
-    expect(readFileSync('dist/index.d.ts').length).toBeGreaterThan(0)
+    expect(readFileSync('./dist/index.d.ts').length).toBeGreaterThan(0)
   })
 })
