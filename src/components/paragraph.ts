@@ -6,7 +6,6 @@ export class Paragraph extends Child {
 
   initialize(): void {
     this.types = this.findTypes()
-    console.log(this.types.map((v) => this.main.cheerio(v).text()))
   }
 
   findTypes(): cheerio.Element[] {
