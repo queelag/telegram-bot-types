@@ -1,5 +1,6 @@
+import { readFileSync } from 'fs'
+import { beforeAll, describe, expect, it } from 'vitest'
 import Main from '../src'
-import fs from 'fs-extra'
 
 describe('Main', () => {
   let main: Main
@@ -39,6 +40,6 @@ describe('Main', () => {
   it('writes the typescript definitions', () => {
     main.writer.typescript()
 
-    expect(fs.readFileSync('dist/index.d.ts').length).toBeGreaterThan(0)
+    expect(readFileSync('dist/index.d.ts').length).toBeGreaterThan(0)
   })
 })

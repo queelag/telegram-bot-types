@@ -1,23 +1,26 @@
-import axios, { AxiosResponse } from 'axios'
+import { Fetch, FetchError, FetchResponse } from '@queelag/core'
 import cheerio from 'cheerio'
-import List from './components/list'
-import Parser from './components/parser'
-import Table from './components/table'
-import Writer from './components/writer'
+import { List } from './components/list'
+import { Paragraph } from './components/paragraph'
+import { Parser } from './components/parser'
+import { Table } from './components/table'
+import { Writer } from './components/writer'
 
 class Main {
   cheerio: cheerio.Root = cheerio.load('')
   html: string = ''
 
   list: List = new List(this)
+  paragraph: Paragraph = new Paragraph(this)
   parser: Parser = new Parser(this)
   table: Table = new Table(this)
   writer: Writer = new Writer(this)
 
   async initialize(): Promise<void> {
-    let response: AxiosResponse<string>
+    let response: FetchResponse<string> | FetchError
 
-    response = await axios.get<string>('https://core.telegram.org/bots/api')
+    response = await Fetch.get('https://core.telegram.org/bots/api')
+    if (response instanceof Error) return
 
     this.html = response.data
     this.cheerio = cheerio.load(this.html)

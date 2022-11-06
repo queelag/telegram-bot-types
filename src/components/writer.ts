@@ -1,43 +1,48 @@
-import fs from 'fs-extra'
-import { Field, Method, Parameter, Type } from '../definitions/types'
-import Child from '../modules/child'
+import { writeFileSync } from 'fs'
+import { Child } from '../modules/child'
 
-class Writer extends Child {
+export class Writer extends Child {
   typescript(): void {
     let out: string[] = []
 
-    this.main.parser.types.forEach((v: Type) => {
-      out.push(`/* ${v.description} */`)
-      out.push(`export type ${v.name} = `)
+    for (let type of this.main.parser.types) {
+      out.push(`/* ${type.description} */`)
+      out.push(`export type ${type.name} = `)
 
-      if (v.matches.length <= 0) out[out.length - 1] += '{'
+      if (type.matches.length <= 0) {
+        out[out.length - 1] += '{'
+      }
 
-      v.fields.forEach((v: Field) => {
-        out.push(`  /* ${v.description} */`)
-        out.push(`  ${v.name}${v.description.includes('Optional') ? '?:' : ':'} ${this.telegramTypeToTypescript(v.type)}`)
-      })
+      for (let field of type.fields) {
+        out.push(`  /* ${field.description} */`)
+        out.push(`  ${field.name}${field.description.includes('Optional') ? '?:' : ':'} ${this.telegramTypeToTypescript(field.type)}`)
+      }
 
-      if (v.matches.length > 0) out[out.length - 1] += v.matches.join(' | ')
+      if (type.matches.length > 0) {
+        out[out.length - 1] += type.matches.join(' | ')
+      }
 
-      if (v.matches.length <= 0) out.push(`}`)
+      if (type.matches.length <= 0) {
+        out.push(`}`)
+      }
 
       out.push('')
-    })
+    }
 
-    this.main.parser.methods.forEach((v: Method) => {
-      out.push(`/* ${v.description} */`)
-      out.push(`export type ${v.name} = {`)
+    for (let method of this.main.parser.methods) {
+      out.push(`/* ${method.description} */`)
+      out.push(`export type ${method.name} = {`)
 
-      v.parameters.forEach((v: Parameter) => {
-        out.push(`  /* ${v.description} */`)
-        out.push(`  ${v.name}${v.required ? ':' : '?:'} ${this.telegramTypeToTypescript(v.type)}`)
-      })
+      for (let parameter of method.parameters) {
+        out.push(`  /* ${parameter.description} */`)
+        out.push(`  ${parameter.name}${parameter.required ? ':' : '?:'} ${this.telegramTypeToTypescript(parameter.type)}`)
+      }
 
       out.push(`}`)
       out.push('')
-    })
+    }
 
-    fs.writeFileSync('dist/index.d.ts', out.join('\n'))
+    writeFileSync('dist/index.d.ts', out.join('\n'))
   }
 
   telegramTypeToTypescript(type: string): string {
@@ -86,5 +91,3 @@ class Writer extends Child {
     }
   }
 }
-
-export default Writer

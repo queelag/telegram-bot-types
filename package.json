@@ -1,32 +1,23 @@
 {
   "author": "Dario Sechi",
   "devDependencies": {
-    "@types/cheerio": "^0.22.28",
-    "@types/fs-extra": "^9.0.11",
-    "@types/jest": "^27.0.2",
-    "@types/lodash": "^4.14.168",
-    "@types/node": "^16.11.2",
-    "axios": "^0.23.0",
-    "cheerio": "^1.0.0-rc.6",
-    "dts-bundle": "^0.7.3",
-    "fs-extra": "^10.0.0",
-    "jest": "^27.3.1",
-    "lodash": "^4.17.21",
-    "ts-jest": "^27.0.7",
-    "typescript": "^4.2.4"
+    "@queelag/core": "^1.1.12",
+    "@types/cheerio": "^0.22.31",
+    "@vitest/coverage-c8": "^0.24.5",
+    "@vitest/ui": "^0.24.5",
+    "cheerio": "^1.0.0-rc.12",
+    "typescript": "^4.8.4",
+    "vitest": "^0.24.5"
   },
   "license": "MIT",
   "main": "index.js",
-  "name": "@queelag/telegram-types",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
+  "name": "@queelag/telegram-bot-types",
+  "repository": "https://github.com/queelag/telegram-bot-types",
   "scripts": {
-    "start": "node dist/index.js",
+    "test": "yarn vitest run",
     "build": "rm -rf dist && rm -rf declarations && yarn tsc && node index.js && : > dist/index.js",
-    "test": "yarn jest index",
-    "tarball": "yarn version && cp package.json dist/. && cd dist && yarn pack",
-    "deploy": "yarn test && yarn build && yarn tarball && yarn publish dist/*.tgz --access public && git push"
+    "tarball": "yarn version && cp package.json README.md dist/. && cd dist && yarn pack",
+    "deploy": "yarn test && yarn build && yarn tarball && yarn publish dist/*.tgz && git push"
   },
   "version": "1.1.9"
 }

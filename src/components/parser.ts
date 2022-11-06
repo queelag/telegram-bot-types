@@ -1,14 +1,16 @@
-import { last, startCase } from 'lodash'
+import { getStartCaseString } from '@queelag/core'
 import { Field, Method, Parameter, Type } from '../definitions/types'
-import Child from '../modules/child'
+import { Child } from '../modules/child'
 
-class Parser extends Child {
+export class Parser extends Child {
   methods: Method[] = []
   types: Type[] = []
 
   initialize(): void {
     this.methods = this.mapTablesToMethods(this.main.table.methods)
-    this.types = this.mapTablesToTypes(this.main.table.types).concat(this.mapListsToTypes(this.main.list.types))
+    this.types = this.mapTablesToTypes(this.main.table.types)
+      .concat(this.mapListsToTypes(this.main.list.types))
+      .concat(this.mapParagraphsToTypes(this.main.paragraph.types))
   }
 
   castTableBodyToParameter(body: cheerio.Element): Parameter {
@@ -48,7 +50,7 @@ class Parser extends Child {
     rows = this.main.cheerio('tbody > tr', table).toArray()
 
     method = {} as Method
-    method.name = startCase(this.findTableName(table)).replace(/ /g, '')
+    method.name = getStartCaseString(this.findTableName(table)).replace(/ /g, '')
     method.description = this.findTableDescription(table)
     method.parameters = this.mapTableRowsToParameters(rows)
 
@@ -103,6 +105,22 @@ class Parser extends Child {
     return lists.map((v: cheerio.Element) => this.castListToType(v))
   }
 
+  castParagraphToType(paragraph: cheerio.Element): Type {
+    let type: Type
+
+    type = {} as Type
+    type.name = this.main.cheerio(paragraph).prev('h4').text()
+    type.description = this.main.cheerio(paragraph).text()
+    type.fields = []
+    type.matches = []
+
+    return type
+  }
+
+  mapParagraphsToTypes(paragraphs: cheerio.Element[]): Type[] {
+    return paragraphs.map((v: cheerio.Element) => this.castParagraphToType(v))
+  }
+
   castParagraphsToString(paragraphs: cheerio.Element[]): string {
     return paragraphs
       .reduce((r: string[], v: cheerio.Element) => {
@@ -120,7 +138,7 @@ class Parser extends Child {
     let paragraphs: cheerio.Element[], heading: cheerio.Cheerio
 
     paragraphs = this.main.cheerio(table).prevUntil('h4', 'p').toArray()
-    heading = this.main.cheerio(last(paragraphs)).prev('h4')
+    heading = this.main.cheerio(paragraphs[paragraphs.length - 1]).prev('h4')
 
     return heading.text()
   }
@@ -137,5 +155,3 @@ class Parser extends Child {
     return this.findTableDescription(list)
   }
 }
-
-export default Parser

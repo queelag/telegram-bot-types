@@ -1,6 +1,6 @@
-import Child from '../modules/child'
+import { Child } from '../modules/child'
 
-class Table extends Child {
+export class Table extends Child {
   all: cheerio.Element[] = []
   methods: cheerio.Element[] = []
   types: cheerio.Element[] = []
@@ -26,17 +26,17 @@ class Table extends Child {
   filterByTableHeadFirstValue(value: string, tables: cheerio.Element[]): cheerio.Element[] {
     let filtered: cheerio.Element[] = []
 
-    tables.forEach((v: cheerio.Element) => {
+    for (let table of tables) {
       let head: cheerio.Cheerio, text: string
 
-      head = this.main.cheerio('thead > tr > th:first-child', v)
+      head = this.main.cheerio('thead > tr > th:first-child', table)
       text = head.text()
 
-      if (text === value) filtered.push(v)
-    })
+      if (text === value) {
+        filtered.push(table)
+      }
+    }
 
     return filtered
   }
 }
-
-export default Table
