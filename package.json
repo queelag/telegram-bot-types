@@ -16,7 +16,7 @@
   "scripts": {
     "test": "yarn vitest run",
     "build": "rm -rf dist && rm -rf declarations && yarn tsc && node index.js && : > dist/index.js",
-    "tarball": "yarn version && cp package.json README.md dist/. && cd dist && yarn pack",
+    "tarball": "yarn version && cp LICENSE package.json README.md dist/. && cd dist && yarn pack",
     "deploy": "yarn test && yarn build && yarn tarball && yarn publish dist/*.tgz && git push"
   },
   "version": "1.2.0"
