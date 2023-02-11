@@ -1,4 +1,4 @@
-import { getStartCaseString } from '@queelag/core'
+import { getPascalCaseString } from '@queelag/core'
 import { Field, Method, Parameter, Type } from '../definitions/types'
 import { Child } from '../modules/child'
 
@@ -50,7 +50,7 @@ export class Parser extends Child {
     rows = this.main.cheerio('tbody > tr', table).toArray()
 
     method = {} as Method
-    method.name = getStartCaseString(this.findTableName(table)).replace(/ /g, '')
+    method.name = getPascalCaseString(this.findTableName(table)).replace(/ /g, '')
     method.description = this.findTableDescription(table)
     method.parameters = this.mapTableRowsToParameters(rows)
 
