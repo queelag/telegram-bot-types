@@ -1,4 +1,4 @@
-import { getPascalCaseString } from '@queelag/core'
+import { getPascalCaseString } from '@aracna/core'
 import { Field, Method, Parameter, Type } from '../definitions/types'
 import { Child } from '../modules/child'
 

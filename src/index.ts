@@ -1,4 +1,4 @@
-import { Fetch, FetchError, FetchResponse } from '@queelag/core'
+import { Fetch, FetchError, FetchResponse } from '@aracna/core'
 import cheerio from 'cheerio'
 import { List } from './components/list'
 import { Paragraph } from './components/paragraph'
