@@ -1,8 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig.json",
   "compilerOptions": {
-    "declaration": true,
-    "declarationDir": "dist/declarations",
     "esModuleInterop": true,
     "module": "CommonJS",
     "moduleResolution": "Node",
