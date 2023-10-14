@@ -19,5 +19,6 @@
     "tarball": "yarn version && cp LICENSE package.json README.md dist/. && cd dist && yarn pack",
     "deploy": "yarn test && yarn build && yarn tarball && yarn publish dist/*.tgz && git push"
   },
+  "types": "index.d.ts",
   "version": "1.2.5"
 }

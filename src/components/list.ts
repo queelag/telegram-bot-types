@@ -21,11 +21,11 @@ export class List extends Child {
             (li: cheerio.Element) =>
               this.main.cheerio(li).has('a') &&
               this.main.cheerio('a', li).text().match(this.regex) &&
-              !this.main.cheerio(li).html().includes('<em>') &&
+              !this.main.cheerio(li).html()?.includes('<em>') &&
               !this.main
                 .cheerio(li)
                 .html()
-                .includes(`Added support for photos and videos in the 'What can this bot do?' section (shown on the bot's start screen).`)
+                ?.includes(`Added support for photos and videos in the 'What can this bot do?' section (shown on the bot's start screen).`)
           )
       )
   }

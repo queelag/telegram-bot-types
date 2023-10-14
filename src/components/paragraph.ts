@@ -15,7 +15,7 @@ export class Paragraph extends Child {
       .toArray()
       .filter(
         (p: cheerio.Element) =>
-          this.main.cheerio(p).html().includes('Currently holds no information.') && this.main.cheerio(p).prev('h4').text().match(this.regex)
+          this.main.cheerio(p).html()?.includes('Currently holds no information.') && this.main.cheerio(p).prev('h4').text().match(this.regex)
       )
   }
 }
