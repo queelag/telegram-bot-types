@@ -22,5 +22,5 @@
     "test": "vitest run"
   },
   "types": "index.d.ts",
-  "version": "1.2.8"
+  "version": "1.2.9"
 }
