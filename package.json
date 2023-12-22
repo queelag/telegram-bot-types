@@ -1,23 +1,22 @@
 {
   "author": "Dario Sechi",
   "devDependencies": {
-    "@aracna/core": "^1.1.41",
-    "@types/cheerio": "^0.22.31",
-    "@vitest/coverage-v8": "^0.34.2",
-    "@vitest/ui": "^0.34.2",
-    "cheerio": "^1.0.0-rc.12",
-    "typescript": "^5.1.6",
-    "vitest": "^0.34.2"
+    "@aracna/core": "^1.1.73",
+    "@types/cheerio": "^0.22.35",
+    "@vitest/coverage-v8": "^1.1.0",
+    "@vitest/ui": "^1.1.0",
+    "cheerio": "1.0.0-rc.12",
+    "typescript": "^5.3.3",
+    "vitest": "^1.1.0"
   },
   "license": "MIT",
   "main": "index.js",
   "name": "@aracna/telegram-bot-types",
   "repository": "https://github.com/aracna/telegram-bot-types",
   "scripts": {
-    "test": "yarn vitest run",
-    "build": "rm -rf dist && rm -rf declarations && yarn tsc && node index.js && : > dist/index.js",
-    "tarball": "yarn version && cp LICENSE package.json README.md dist/. && cd dist && yarn pack",
-    "deploy": "yarn test && yarn build && yarn tarball && yarn publish dist/*.tgz && git push"
+    "build": "rm -rf dist && pnpm tsc && node index.js && : > dist/index.js",
+    "prepublish": "pnpm build && pnpm version patch && cp LICENSE package.json README.md dist",
+    "test": "vitest run"
   },
   "types": "index.d.ts",
   "version": "1.2.7"

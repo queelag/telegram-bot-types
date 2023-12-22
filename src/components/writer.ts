@@ -1,8 +1,8 @@
-import { mkdirSync, writeFileSync } from 'fs'
+import { mkdir, writeFile } from 'fs/promises'
 import { Child } from '../modules/child'
 
 export class Writer extends Child {
-  typescript(): void {
+  async typescript(): Promise<void> {
     let out: string[] = []
 
     for (let type of this.main.parser.types) {
@@ -42,8 +42,8 @@ export class Writer extends Child {
       out.push('')
     }
 
-    mkdirSync('./dist', { recursive: true })
-    writeFileSync('./dist/index.d.ts', out.join('\n'))
+    await mkdir('./dist', { recursive: true })
+    await writeFile('./dist/index.d.ts', out.join('\n'))
   }
 
   telegramTypeToTypescript(type: string): string {

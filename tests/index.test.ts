@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs'
+import { readFile } from 'fs/promises'
 import { beforeAll, describe, expect, it } from 'vitest'
 import Main from '../src'
 
@@ -37,9 +37,9 @@ describe('Main', () => {
     expect(main.parser.types.length).toBeGreaterThan(0)
   })
 
-  it('writes the typescript definitions', () => {
-    main.writer.typescript()
+  it('writes the typescript definitions', async () => {
+    await main.writer.typescript()
 
-    expect(readFileSync('./dist/index.d.ts').length).toBeGreaterThan(0)
+    expect((await readFile('./dist/index.d.ts')).length).toBeGreaterThan(0)
   })
 })

@@ -10,7 +10,7 @@ async function run() {
   main.paragraph.initialize()
   main.parser.initialize()
 
-  main.writer.typescript()
+  await main.writer.typescript()
 }
 
 run()
