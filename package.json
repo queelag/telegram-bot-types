@@ -12,6 +12,9 @@
   "license": "MIT",
   "main": "index.js",
   "name": "@aracna/telegram-bot-types",
+  "publishConfig": {
+    "directory": "dist"
+  },
   "repository": "https://github.com/aracna/telegram-bot-types",
   "scripts": {
     "build": "rm -rf dist && pnpm tsc && node index.js && : > dist/index.js",
