@@ -20,7 +20,7 @@ export class List extends Child {
           .every(
             (li: cheerio.Element) =>
               this.main.cheerio(li).has('a') &&
-              this.main.cheerio('a', li).text().match(this.regex) &&
+              this.regex.exec(this.main.cheerio('a', li).text()) &&
               !this.main.cheerio(li).html()?.includes('<em>') &&
               !this.main
                 .cheerio(li)

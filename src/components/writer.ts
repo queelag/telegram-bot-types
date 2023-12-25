@@ -53,8 +53,8 @@ export class Writer extends Child {
       case type.includes('Array of'):
         let arrayOfs: number, ands: number
 
-        arrayOfs = (type.match(/Array of/g) || []).length
-        ands = (type.match(/( and |,)/g) || []).length
+        arrayOfs = (type.match(/Array of/g) ?? []).length
+        ands = (type.match(/( and |,)/g) ?? []).length
 
         return (
           (ands > 0 ? '(' : '') +
