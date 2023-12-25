@@ -50,7 +50,7 @@ export class Writer extends Child {
     switch (true) {
       case type === 'Integer':
         return 'number'
-      case type.includes('Array of'):
+      case type.includes('Array of'): {
         let arrayOfs: number, ands: number
 
         arrayOfs = (type.match(/Array of/g) ?? []).length
@@ -66,6 +66,7 @@ export class Writer extends Child {
           (ands > 0 ? ')' : '') +
           new Array(arrayOfs).fill('[]').reduce((r: string, v: string) => r + v, '')
         )
+      }
       case type === 'String':
         return 'string'
       case type.includes(' or '):
