@@ -16,6 +16,7 @@
   "license": "MIT",
   "main": "index.js",
   "name": "@aracna/telegram-bot-types",
+  "packageManager": "pnpm@9.7.0",
   "publishConfig": {
     "directory": "dist"
   },
