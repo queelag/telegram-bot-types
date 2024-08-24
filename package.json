@@ -23,7 +23,7 @@
   "repository": "https://github.com/aracna/telegram-bot-types",
   "scripts": {
     "build": "rm -rf dist && pnpm tsc && node index.js && : > dist/index.js",
-    "prepublish": "pnpm build && pnpm version patch && cp LICENSE package.json README.md dist",
+    "prepublish": "pnpm build && cp LICENSE package.json README.md dist",
     "test": "vitest run"
   },
   "types": "index.d.ts",
