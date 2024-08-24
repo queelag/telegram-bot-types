@@ -15,7 +15,9 @@ export class Writer extends Child {
 
       for (let field of type.fields) {
         out.push(`  /* ${field.description} */`)
-        out.push(`  ${field.name}${field.description.includes('Optional') ? '?:' : ':'} ${this.telegramTypeToTypescript(field.type, field.description)}`)
+        out.push(
+          `  ${field.name}${field.description.includes('Optional') ? '?:' : ':'} ${this.telegramTypeToTypescript(field.type, field.description, field.name)}`
+        )
       }
 
       if (type.matches.length > 0) {
@@ -35,7 +37,9 @@ export class Writer extends Child {
 
       for (let parameter of method.parameters) {
         out.push(`  /* ${parameter.description} */`)
-        out.push(`  ${parameter.name}${parameter.required ? ':' : '?:'} ${this.telegramTypeToTypescript(parameter.type, parameter.description)}`)
+        out.push(
+          `  ${parameter.name}${parameter.required ? ':' : '?:'} ${this.telegramTypeToTypescript(parameter.type, parameter.description, parameter.name)}`
+        )
       }
 
       out.push(`}`)
@@ -46,7 +50,7 @@ export class Writer extends Child {
     await writeFile('./dist/index.d.ts', out.join('\n'))
   }
 
-  telegramTypeToTypescript(type: string, description: string): string {
+  telegramTypeToTypescript(type: string, description?: string, name?: string): string {
     switch (true) {
       case type === 'Boolean':
         return 'boolean'
@@ -57,8 +61,17 @@ export class Writer extends Child {
       case type === 'Float number':
       case type === 'Integer':
       case type === 'Integer number':
-        if (description.includes('52') && description.includes('64')) {
+        if (description?.includes('52') && description.includes('64')) {
           return 'bigint'
+        }
+
+        switch (name) {
+          case 'chat_id':
+          case 'sender_chat_id':
+          case 'user_id':
+            return 'bigint'
+          default:
+            break
         }
 
         return 'number'
