@@ -62,21 +62,21 @@ export class Writer extends Child {
       case type === 'Integer':
       case type === 'Integer number':
         if (description?.includes('52') && description.includes('64')) {
-          return 'bigint'
+          return 'bigint | number'
         }
 
         switch (name) {
           case 'chat_id':
           case 'sender_chat_id':
           case 'user_id':
-            return 'bigint'
+            return 'bigint | number'
           default:
             break
         }
 
         return 'number'
       case type === 'Integer or String':
-        return 'bigint'
+        return 'bigint | number'
       case type === 'InputFile':
         return '(Blob & { lastModified: number; name: string; webkitRelativePath: string }) | string'
       case type === 'String':
