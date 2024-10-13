@@ -1,5 +1,5 @@
 import { Fetch, FetchError, FetchResponse } from '@aracna/core'
-import cheerio from 'cheerio'
+import { load } from 'cheerio'
 import { List } from './components/list'
 import { Paragraph } from './components/paragraph'
 import { Parser } from './components/parser'
@@ -7,7 +7,7 @@ import { Table } from './components/table'
 import { Writer } from './components/writer'
 
 class Main {
-  cheerio: cheerio.Root = cheerio.load('')
+  cheerio: cheerio.Root = load('')
   html: string = ''
 
   list: List = new List(this)
@@ -23,7 +23,7 @@ class Main {
     if (response instanceof Error) return
 
     this.html = response.data
-    this.cheerio = cheerio.load(this.html)
+    this.cheerio = load(this.html)
   }
 }
 
