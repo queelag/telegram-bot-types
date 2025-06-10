@@ -78,8 +78,13 @@ export class Writer extends Child {
       case type === 'Integer or String':
         return 'bigint | number'
       case type === 'InputFile':
+      case type === 'InputFile or String':
         return '(Blob & { lastModified: number; name: string; webkitRelativePath: string }) | string'
       case type === 'String':
+        if (description?.includes('attach://<file_attach_name>')) {
+          return '(Blob & { lastModified: number; name: string; webkitRelativePath: string }) | string'
+        }
+
         return 'string'
       case type === 'True':
         return 'true'
