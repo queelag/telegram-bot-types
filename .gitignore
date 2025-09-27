@@ -1,7 +1,5 @@
-node_modules
-database
 dist
-declarations
-.env
+node_modules
+packages/@aracna/core
+
 .DS_Store
-yarn-error.log
