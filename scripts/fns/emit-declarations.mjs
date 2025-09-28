@@ -1,10 +1,16 @@
-import { execSync } from 'child_process'
-
 export async function emitDeclarations() {
-  try {
-    execSync('npm exec tsc', { stdio: 'inherit' })
-    execSync('node index.js', { stdio: 'inherit' })
-  } catch (e) {
-    return e
-  }
+  let main
+
+  const { Main } = await import('../../dist/index.js')
+
+  main = new Main()
+
+  await main.initialize()
+
+  main.list.initialize()
+  main.table.initialize()
+  main.paragraph.initialize()
+  main.parser.initialize()
+
+  await main.writer.typescript()
 }

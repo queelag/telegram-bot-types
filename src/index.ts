@@ -1,12 +1,12 @@
 import { Fetch, FetchError, FetchResponse } from '@aracna/core'
 import { CheerioAPI, load } from 'cheerio'
-import { List } from './components/list'
-import { Paragraph } from './components/paragraph'
-import { Parser } from './components/parser'
-import { Table } from './components/table'
-import { Writer } from './components/writer'
+import { List } from './components/list.js'
+import { Paragraph } from './components/paragraph.js'
+import { Parser } from './components/parser.js'
+import { Table } from './components/table.js'
+import { Writer } from './components/writer.js'
 
-class Main {
+export class Main {
   cheerio: CheerioAPI = load('')
   html: string = ''
 
@@ -26,5 +26,3 @@ class Main {
     this.cheerio = load(this.html)
   }
 }
-
-export default Main

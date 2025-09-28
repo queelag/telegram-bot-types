@@ -1,8 +1,8 @@
 import { getPascalCaseString } from '@aracna/core'
 import { Cheerio } from 'cheerio'
 import { Element } from 'domhandler'
-import { Field, Method, Parameter, Type } from '../definitions/types'
-import { Child } from '../modules/child'
+import { Field, Method, Parameter, Type } from '../definitions/types.js'
+import { Child } from '../modules/child.js'
 
 export class Parser extends Child {
   methods: Method[] = []

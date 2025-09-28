@@ -1,5 +1,5 @@
 import { mkdir, writeFile } from 'fs/promises'
-import { Child } from '../modules/child'
+import { Child } from '../modules/child.js'
 
 export class Writer extends Child {
   async typescript(): Promise<void> {

@@ -1,4 +1,4 @@
-import Main from '..'
+import type { Main } from '../index.js'
 
 export class Child {
   protected main: Main

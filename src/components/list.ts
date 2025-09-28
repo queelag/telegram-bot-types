@@ -1,5 +1,5 @@
 import { Element } from 'domhandler'
-import { Child } from '../modules/child'
+import { Child } from '../modules/child.js'
 
 export class List extends Child {
   types: Element[] = []
