@@ -37,8 +37,6 @@ importers:
         version: 3.2.4(@types/node@22.14.0)(@vitest/ui@3.2.4)
     publishDirectory: dist
 
-  packages/@aracna/core: {}
-
 packages:
 
   '@ampproject/remapping@2.3.0':
