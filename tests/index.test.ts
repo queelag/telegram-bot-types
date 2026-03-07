@@ -1,6 +1,6 @@
 import { readFile } from 'fs/promises'
 import { beforeAll, describe, expect, it } from 'vitest'
-import Main from '../src'
+import { Main } from '../src'
 
 describe('Main', () => {
   let main: Main
