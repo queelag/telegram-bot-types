@@ -1,7 +1,7 @@
 import { getPascalCaseString } from '@aracna/core'
-import { Cheerio } from 'cheerio'
-import { Element } from 'domhandler'
-import { Field, Method, Parameter, Type } from '../definitions/types.js'
+import type { Cheerio } from 'cheerio'
+import type { Element } from 'domhandler'
+import type { Field, Method, Parameter, Type } from '../definitions/interfaces.js'
 import { Child } from '../modules/child.js'
 
 export class Parser extends Child {
@@ -131,7 +131,9 @@ export class Parser extends Child {
         text = this.main.cheerio(v).text()
         if (text.trim().length <= 0) return r
 
-        return [...r, text]
+        r.push(text)
+
+        return r
       }, [])
       .join('\n')
   }
@@ -140,7 +142,7 @@ export class Parser extends Child {
     let paragraphs: Element[], heading: Cheerio<Element>
 
     paragraphs = this.main.cheerio(table).prevUntil('h4', 'p').toArray()
-    heading = this.main.cheerio(paragraphs[paragraphs.length - 1]).prev('h4')
+    heading = this.main.cheerio(paragraphs.at(-1)).prev('h4')
 
     return heading.text()
   }

@@ -1,5 +1,5 @@
-import { Cheerio } from 'cheerio'
-import { Element } from 'domhandler'
+import type { Cheerio } from 'cheerio'
+import type { Element } from 'domhandler'
 import { Child } from '../modules/child.js'
 
 export class Table extends Child {

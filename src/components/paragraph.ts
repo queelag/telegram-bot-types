@@ -1,9 +1,10 @@
-import { Element } from 'domhandler'
+import type { Element } from 'domhandler'
+import { PARAGRAPH_REGEXP } from '../definitions/constants.js'
 import { Child } from '../modules/child.js'
 
 export class Paragraph extends Child {
   types: Element[] = []
-  regex: RegExp = /^[A-Z][a-zA-Z0-9]+$/
+  regex: RegExp = PARAGRAPH_REGEXP
 
   initialize(): void {
     this.types = this.findTypes()

@@ -1,5 +1,5 @@
-import { Fetch, FetchError, FetchResponse } from '@aracna/core'
-import { CheerioAPI, load } from 'cheerio'
+import { Fetch, type FetchError, type FetchResponse } from '@aracna/core'
+import { type CheerioAPI, load } from 'cheerio'
 import { List } from './components/list.js'
 import { Paragraph } from './components/paragraph.js'
 import { Parser } from './components/parser.js'

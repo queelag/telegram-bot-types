@@ -1,7 +1,28 @@
 {
+  "name": "@aracna/telegram-bot-types",
+  "version": "1.2.22",
+  "repository": "https://github.com/queelag/telegram-bot-types",
+  "license": "MIT",
   "author": "Dario Sechi",
+  "type": "module",
+  "exports": {
+    "types": "./index.d.ts",
+    "import": "./index.js",
+    "require": "./index.cjs"
+  },
+  "main": "index.cjs",
+  "module": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "lint": "biome check --write",
+    "prepublish": "node scripts/build.mjs",
+    "test": "vitest run"
+  },
   "devDependencies": {
     "@aracna/core": "workspace:*",
+    "@biomejs/biome": "^2.5.2",
+    "@types/node": "^26.1.0",
     "@vitest/coverage-v8": "^4.1.7",
     "@vitest/ui": "^4.1.7",
     "cheerio": "1.2.0",
@@ -11,37 +32,12 @@
     "typescript": "^6.0.3",
     "vitest": "^4.1.7"
   },
+  "packageManager": "pnpm@11.5.0+sha512.dbfcc4f81cf48597afd4bc391ffdf12c11f1a9fb83a395bfa6b0a2d9cc2fd8ffebafdb1ccbd529632153f793904c2615b7f09fe1a345473fd1c35845172a8eb1",
   "engines": {
     "node": ">=18",
     "pnpm": ">=11"
   },
-  "exports": {
-    "types": "./index.d.ts",
-    "import": "./index.js",
-    "require": "./index.cjs"
-  },
-  "license": "MIT",
-  "main": "index.cjs",
-  "module": "index.js",
-  "name": "@aracna/telegram-bot-types",
-  "packageManager": "pnpm@11.5.0+sha512.dbfcc4f81cf48597afd4bc391ffdf12c11f1a9fb83a395bfa6b0a2d9cc2fd8ffebafdb1ccbd529632153f793904c2615b7f09fe1a345473fd1c35845172a8eb1",
-  "prettier": {
-    "jsxSingleQuote": true,
-    "printWidth": 160,
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "none"
-  },
   "publishConfig": {
     "directory": "dist"
-  },
-  "repository": "https://github.com/queelag/telegram-bot-types",
-  "scripts": {
-    "build": "node scripts/build.mjs",
-    "prepublish": "node scripts/build.mjs",
-    "test": "vitest run"
-  },
-  "type": "module",
-  "types": "index.d.ts",
-  "version": "1.2.22"
+  }
 }

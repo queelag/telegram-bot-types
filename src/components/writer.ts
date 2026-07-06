@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from 'fs/promises'
+import { mkdir, writeFile } from 'node:fs/promises'
 import { Child } from '../modules/child.js'
 
 export class Writer extends Child {
@@ -99,7 +99,10 @@ export class Writer extends Child {
           type
             .replace(/(Array of | and|,)/g, '')
             .split(' ')
-            .reduce((r: string[], v: string) => [...r, this.telegramTypeToTypescript(v, description)], [])
+            .reduce((r: string[], v: string) => {
+              r.push(this.telegramTypeToTypescript(v, description))
+              return r
+            }, [])
             .join(' | ') +
           (ands > 0 ? ')' : '') +
           new Array(arrayOfs).fill('[]').reduce((r: string, v: string) => r + v, '')
@@ -109,7 +112,10 @@ export class Writer extends Child {
         return type
           .replace(/ or/g, '')
           .split(' ')
-          .reduce((r: string[], v: string) => [...r, this.telegramTypeToTypescript(v, description)], [])
+          .reduce((r: string[], v: string) => {
+            r.push(this.telegramTypeToTypescript(v, description))
+            return r
+          }, [])
           .join(' | ')
       default:
         return type

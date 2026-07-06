@@ -1,9 +1,10 @@
-import { Element } from 'domhandler'
+import type { Element } from 'domhandler'
+import { LIST_REGEXP } from '../definitions/constants.js'
 import { Child } from '../modules/child.js'
 
 export class List extends Child {
   types: Element[] = []
-  regex: RegExp = /^[A-Z][a-zA-Z0-9]+$/
+  regex: RegExp = LIST_REGEXP
 
   initialize(): void {
     this.types = this.findTypes()
@@ -15,12 +16,12 @@ export class List extends Child {
       .children('ul')
       .toArray()
       .filter((ul: Element) => {
-        let li: Element[]
+        let lis: Element[]
 
-        li = this.main.cheerio('li', ul).toArray()
-        if (li.length <= 0) return false
+        lis = this.main.cheerio('li', ul).toArray()
+        if (lis.length <= 0) return false
 
-        return li.every(
+        return lis.every(
           (li: Element) =>
             this.main.cheerio(li).has('a') &&
             this.regex.exec(this.main.cheerio('a', li).text()) &&
