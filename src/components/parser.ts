@@ -139,10 +139,15 @@ export class Parser extends Child {
   }
 
   findTableName(table: Element): string {
-    let paragraphs: Element[], heading: Cheerio<Element>
+    let paragraphs: Element[], heading: Cheerio<Element> | undefined
 
     paragraphs = this.main.cheerio(table).prevUntil('h4', 'p').toArray()
-    heading = this.main.cheerio(paragraphs.at(-1)).prev('h4')
+
+    if (paragraphs.length > 0) {
+      heading = this.main.cheerio(paragraphs.at(-1)).prev('h4')
+    } else {
+      heading = this.main.cheerio(table).prev('h4')
+    }
 
     return heading.text()
   }
@@ -152,7 +157,12 @@ export class Parser extends Child {
   }
 
   findTableDescription(table: Element): string {
-    return this.castParagraphsToString(this.main.cheerio(table).prevUntil('h4', 'p').toArray())
+    let paragraphs: Element[]
+
+    paragraphs = this.main.cheerio(table).prevUntil('h4', 'p').toArray()
+    if (paragraphs.length <= 0) return ''
+
+    return this.castParagraphsToString(paragraphs)
   }
 
   findListDescription(list: Element): string {
